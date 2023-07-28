@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:geumbti/page/second_question.dart';
-import 'package:geumbti/page/third_question.dart';
+import 'package:geumbti/page/results/result_Squirrel.dart';
+import 'package:geumbti/page/results/result_TibetFox.dart';
 import 'package:geumbti/widgets/appwidgets.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FirstQuestion extends StatelessWidget {
-  FirstQuestion({
+class FifthQuestion extends StatelessWidget {
+  FifthQuestion({
     Key? key,
   }) : super(key: key);
 
@@ -42,23 +42,28 @@ class FirstQuestion extends StatelessWidget {
                             ),
                             iconSize: 15),
                         Text(
-                          "Q1.",
+                          "Q5.",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         IconButton(
                             iconSize: 15,
-                            onPressed: () {
+                            onPressed: () async {
                               if (isSelected[0] == true ||
                                   isSelected[1] == true) {
                                 if (isSelected[0] == true) {
-                                  Get.toNamed(
-                                    "/second_question",
-                                  );
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  var name = prefs.getString('name');
+                                  Get.offAllNamed("/result_squirrel",
+                                      arguments: name);
                                 } else if (isSelected[1] == true) {
-                                  Get.toNamed(
-                                    "/third_question",
-                                  );
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  var name = prefs.getString('name');
+
+                                  Get.offAllNamed("/result_tibetfox",
+                                      arguments: name);
                                 }
                               }
                             },
@@ -74,7 +79,7 @@ class FirstQuestion extends StatelessWidget {
                   LinearPercentIndicator(
                     barRadius: Radius.circular(20),
                     lineHeight: 8,
-                    percent: 0.2,
+                    percent: 0.8,
                     backgroundColor: Color(0xffF2F2F2),
                     progressColor: Color(0xff7C9EDF),
                   ),
@@ -83,9 +88,10 @@ class FirstQuestion extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      "나는 투자에 관심이 많다",
+                      "아니야, 이럴 땐 더 안전하게 예금해야 돼!",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Spacer(),
@@ -93,10 +99,13 @@ class FirstQuestion extends StatelessWidget {
                     onHover: (value) {
                       ishovered[0] = value;
                     },
-                    onTap: () {
+                    onTap: () async {
                       isSelected[0] = true;
                       isSelected[1] = false;
-                      Get.toNamed("/second_question");
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      var name = prefs.getString('name');
+                      Get.offAllNamed("/result_squirrel", arguments: name);
                     },
                     child: Container(
                         height: 58,
@@ -131,10 +140,16 @@ class FirstQuestion extends StatelessWidget {
                     onHover: (value) {
                       ishovered[1] = value;
                     },
-                    onTap: () {
+                    onTap: () async {
                       isSelected[1] = true;
                       isSelected[0] = false;
-                      Get.toNamed("/third_question");
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      var name = prefs.getString('name');
+                      Get.offAllNamed(
+                        "/result_tibetfox",
+                        arguments: name,
+                      );
                     },
                     child: Container(
                         height: 58,

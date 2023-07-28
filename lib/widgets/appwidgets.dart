@@ -7,7 +7,7 @@ class FocusUnSetter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 50),
+      padding: EdgeInsets.symmetric(vertical: 30),
       child: ScrollConfiguration(
         behavior: ScrollBehavior().copyWith(overscroll: false),
         child: ExpandedSingleChildScrollView(
@@ -18,6 +18,27 @@ class FocusUnSetter extends StatelessWidget {
             behavior: HitTestBehavior.opaque,
             child: child,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class NoPadFocusUnSetter extends StatelessWidget {
+  final Widget child;
+  const NoPadFocusUnSetter({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollConfiguration(
+      behavior: ScrollBehavior().copyWith(overscroll: false),
+      child: ExpandedSingleChildScrollView(
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          behavior: HitTestBehavior.opaque,
+          child: child,
         ),
       ),
     );

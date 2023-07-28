@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:geumbti/page/second_question.dart';
 import 'package:geumbti/page/third_question.dart';
 import 'package:geumbti/widgets/appwidgets.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FirstQuestion extends StatelessWidget {
-  FirstQuestion({
+import 'fourth_question.dart';
+
+class SecondQuestion extends StatelessWidget {
+  SecondQuestion({
     Key? key,
   }) : super(key: key);
 
@@ -42,7 +43,7 @@ class FirstQuestion extends StatelessWidget {
                             ),
                             iconSize: 15),
                         Text(
-                          "Q1.",
+                          "Q2.",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
@@ -53,7 +54,7 @@ class FirstQuestion extends StatelessWidget {
                                   isSelected[1] == true) {
                                 if (isSelected[0] == true) {
                                   Get.toNamed(
-                                    "/second_question",
+                                    "/fourth_question",
                                   );
                                 } else if (isSelected[1] == true) {
                                   Get.toNamed(
@@ -74,7 +75,7 @@ class FirstQuestion extends StatelessWidget {
                   LinearPercentIndicator(
                     barRadius: Radius.circular(20),
                     lineHeight: 8,
-                    percent: 0.2,
+                    percent: 0.3,
                     backgroundColor: Color(0xffF2F2F2),
                     progressColor: Color(0xff7C9EDF),
                   ),
@@ -83,7 +84,7 @@ class FirstQuestion extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      "나는 투자에 관심이 많다",
+                      "나는 투자할때 수익보다 안정이 더 중요하다고 생각한다",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
@@ -96,7 +97,9 @@ class FirstQuestion extends StatelessWidget {
                     onTap: () {
                       isSelected[0] = true;
                       isSelected[1] = false;
-                      Get.toNamed("/second_question");
+                      Get.toNamed(
+                        "/fourth_question",
+                      );
                     },
                     child: Container(
                         height: 58,
@@ -134,7 +137,9 @@ class FirstQuestion extends StatelessWidget {
                     onTap: () {
                       isSelected[1] = true;
                       isSelected[0] = false;
-                      Get.toNamed("/third_question");
+                      Get.toNamed(
+                        "/third_question",
+                      );
                     },
                     child: Container(
                         height: 58,

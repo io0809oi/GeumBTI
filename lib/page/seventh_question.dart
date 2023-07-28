@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:geumbti/page/second_question.dart';
-import 'package:geumbti/page/third_question.dart';
+import 'package:geumbti/page/results/result_Quokka.dart';
+import 'package:geumbti/page/results/result_Sloth.dart';
 import 'package:geumbti/widgets/appwidgets.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FirstQuestion extends StatelessWidget {
-  FirstQuestion({
+class SeventhQuestion extends StatelessWidget {
+  SeventhQuestion({
     Key? key,
   }) : super(key: key);
 
   List<bool> isSelected = [false, false, false, false].obs;
   List<bool> ishovered = [false, false, false, false].obs;
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -42,7 +43,7 @@ class FirstQuestion extends StatelessWidget {
                             ),
                             iconSize: 15),
                         Text(
-                          "Q1.",
+                          "Q7.",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
@@ -52,12 +53,14 @@ class FirstQuestion extends StatelessWidget {
                               if (isSelected[0] == true ||
                                   isSelected[1] == true) {
                                 if (isSelected[0] == true) {
-                                  Get.toNamed(
-                                    "/second_question",
+                                  //쿼카
+                                  Get.offAllNamed(
+                                    "/result_quokka",
                                   );
                                 } else if (isSelected[1] == true) {
-                                  Get.toNamed(
-                                    "/third_question",
+                                  //나무늘보
+                                  Get.offAllNamed(
+                                    "/result_sloth",
                                   );
                                 }
                               }
@@ -74,7 +77,7 @@ class FirstQuestion extends StatelessWidget {
                   LinearPercentIndicator(
                     barRadius: Radius.circular(20),
                     lineHeight: 8,
-                    percent: 0.2,
+                    percent: 0.9,
                     backgroundColor: Color(0xffF2F2F2),
                     progressColor: Color(0xff7C9EDF),
                   ),
@@ -83,9 +86,10 @@ class FirstQuestion extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      "나는 투자에 관심이 많다",
+                      "둘 중 하나를 고를 수 있다면?",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.start,
                     ),
                   ),
                   Spacer(),
@@ -93,10 +97,18 @@ class FirstQuestion extends StatelessWidget {
                     onHover: (value) {
                       ishovered[0] = value;
                     },
-                    onTap: () {
+                    onTap: () async {
                       isSelected[0] = true;
                       isSelected[1] = false;
-                      Get.toNamed("/second_question");
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      var name = prefs.getString('name');
+
+                      //쿼카
+                      Get.offAllNamed(
+                        "/result_quokka",
+                        arguments: name,
+                      );
                     },
                     child: Container(
                         height: 58,
@@ -114,7 +126,7 @@ class FirstQuestion extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            "예",
+                            "①100만원을 받거나 모두 잃기 (50% 확률)",
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -131,10 +143,17 @@ class FirstQuestion extends StatelessWidget {
                     onHover: (value) {
                       ishovered[1] = value;
                     },
-                    onTap: () {
+                    onTap: () async {
                       isSelected[1] = true;
                       isSelected[0] = false;
-                      Get.toNamed("/third_question");
+                      //나무늘보
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      var name = prefs.getString('name');
+                      Get.offAllNamed(
+                        "/result_sloth",
+                        arguments: name,
+                      );
                     },
                     child: Container(
                         height: 58,
@@ -152,7 +171,7 @@ class FirstQuestion extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            "아니오",
+                            "②50만원 무조건 얻기",
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
